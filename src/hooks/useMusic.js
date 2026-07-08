@@ -1,0 +1,123 @@
+import {useState} from "react";
+const songs = [
+{
+    id: 1,
+    title: "Keep You Away",
+    artist: "EchoBR",
+    url: "/public/Songs/Keep You Away.wav",
+    duration: "4:32",
+  },
+  {
+    id: 2,
+    title: "Breaching",
+    artist: "EchoBR",
+    url: "/public/songs/Breaching.wav",
+    duration: "3:45",
+  },
+  {
+    id: 3,
+    title: "Forgotten Memories",
+    artist: "EchoBR",
+    url: "/public/songs/Forgotten Memories.wav",
+    duration: "3:12",
+  },
+  {
+    id: 4,
+    title: "Nothing You Really Want",
+    artist: "EchoBR",
+    url: "/public/songs/nothing you really want.wav",
+    duration: "2:58",
+  },
+  {
+    id: 5,
+    title: "Glacier Blue",
+    artist: "EchoBR",
+    url: "/public/songs/Glacier Blue.wav",
+    duration: "3:28",
+  },
+  {
+    id: 6,
+    title: "In Love",
+    artist: "EchoBR",
+    url: "/public/songs/In Love.wav",
+    duration: "3:15",
+  },
+  {
+    id: 7,
+    title: "Lemon Balm",
+    artist: "EchoBR",
+    url: "/public/songs/Lemon Balm.wav",
+    duration: "3:42",
+  },
+  {
+    id: 8,
+    title: "Momentary Bliss",
+    artist: "EchoBR",
+    url: "/public/songs/Momentary Bliss.wav",
+    duration: "2:45",
+  },
+];
+
+export const useMusic = () =>{
+    const [allSongs, setAllSongs] = useState(songs);
+    const [currentTrack, setCurrentTrack] = useState(songs[0]);
+    const [currentTrackIndex, setCurrentTrackIndex] = useState(0);
+    const [currentTime, setCurrentTime] = useState(0);
+    const [duration, setDuration] = useState(0);
+    const [isPlaying, setIsPlaying] = useState(true);
+
+
+
+
+    const handlePlaySong = (song, index) => {
+      setCurrentTrack(song);
+      setCurrentTrackIndex(index);
+    };
+
+    const nextTrack = () =>{
+      setCurrentTrackIndex((prev) => {
+        const nextIndex = (prev + 1) % allSongs.length;
+        setCurrentTrack(allSongs[nextIndex]);
+        return nextIndex;
+      });
+      
+    };
+    const prevTrack = () =>{
+      setCurrentTrackIndex((prev) => {
+        const nextIndex = prev === 0 ? allSongs.length - 1 : prev - 1;
+        setCurrentTrack(allSongs[nextIndex]);
+        return nextIndex;
+      });
+      
+    };    
+
+    const formatTime = (time) =>{
+      if(isNaN(time )|| time === undefined) return "0:00";
+
+      const minutes = Math.floor(time / 60);
+      const seconds = Math.floor(time % 60);
+
+      return `${minutes}:${seconds.toString().padStart(2, "0")}`;
+
+    };
+
+    const play = () => setIsPlaying(true);
+   const pause = () => setIsPlaying(false);    
+
+    return {
+      allSongs,
+       handlePlaySong,
+        currentTrackIndex,
+        currentTrack, 
+        setCurrentTime, 
+        currentTime,
+        formatTime,
+        duration,
+       setDuration,
+       nextTrack,
+       prevTrack,
+       play,
+       pause,
+       isPlaying
+      };
+};
