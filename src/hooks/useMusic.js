@@ -4,56 +4,56 @@ const songs = [
     id: 1,
     title: "Keep You Away",
     artist: "EchoBR",
-    url: "/public/Songs/Keep You Away.wav",
+    url: "/Songs/Keep You Away.wav",
     duration: "4:32",
   },
   {
     id: 2,
     title: "Breaching",
     artist: "EchoBR",
-    url: "/public/songs/Breaching.wav",
+    url: "/Songs/Breaching.wav",
     duration: "3:45",
   },
   {
     id: 3,
     title: "Forgotten Memories",
     artist: "EchoBR",
-    url: "/public/songs/Forgotten Memories.wav",
+    url: "/Songs/Forgotten Memories.wav",
     duration: "3:12",
   },
   {
     id: 4,
     title: "Nothing You Really Want",
     artist: "EchoBR",
-    url: "/public/songs/nothing you really want.wav",
+    url: "/Songs/nothing you really want.wav",
     duration: "2:58",
   },
   {
     id: 5,
     title: "Glacier Blue",
     artist: "EchoBR",
-    url: "/public/songs/Glacier Blue.wav",
+    url: "/Songs/Glacier Blue.wav",
     duration: "3:28",
   },
   {
     id: 6,
     title: "In Love",
     artist: "EchoBR",
-    url: "/public/songs/In Love.wav",
+    url: "/Songs/In Love.wav",
     duration: "3:15",
   },
   {
     id: 7,
     title: "Lemon Balm",
     artist: "EchoBR",
-    url: "/public/songs/Lemon Balm.wav",
+    url: "/Songs/Lemon Balm.wav",
     duration: "3:42",
   },
   {
     id: 8,
     title: "Momentary Bliss",
     artist: "EchoBR",
-    url: "/public/songs/Momentary Bliss.wav",
+    url: "/Songs/Momentary Bliss.wav",
     duration: "2:45",
   },
 ];
@@ -64,7 +64,8 @@ export const useMusic = () =>{
     const [currentTrackIndex, setCurrentTrackIndex] = useState(0);
     const [currentTime, setCurrentTime] = useState(0);
     const [duration, setDuration] = useState(0);
-    const [isPlaying, setIsPlaying] = useState(true);
+    const [isPlaying, setIsPlaying] = useState(false);
+    const [volume, setVolume] = useState(1);
 
 
 
@@ -80,6 +81,8 @@ export const useMusic = () =>{
         setCurrentTrack(allSongs[nextIndex]);
         return nextIndex;
       });
+
+      setIsPlaying(false);
       
     };
     const prevTrack = () =>{
@@ -88,6 +91,7 @@ export const useMusic = () =>{
         setCurrentTrack(allSongs[nextIndex]);
         return nextIndex;
       });
+      setIsPlaying(false);
       
     };    
 
@@ -118,6 +122,8 @@ export const useMusic = () =>{
        prevTrack,
        play,
        pause,
-       isPlaying
+       isPlaying,
+       volume,  
+       setVolume
       };
 };
