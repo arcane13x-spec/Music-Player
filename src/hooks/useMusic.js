@@ -66,6 +66,7 @@ export const useMusic = () =>{
     const [duration, setDuration] = useState(0);
     const [isPlaying, setIsPlaying] = useState(false);
     const [volume, setVolume] = useState(1);
+    const [playlists, setPlaylists ] = useState([]);
 
 
 
@@ -105,6 +106,30 @@ export const useMusic = () =>{
 
     };
 
+    const createPlaylist = (name) =>{
+      const newPlaylists = {
+        id: Date.now(),
+        name: name,
+        songs: [],
+      };
+      setPlaylists((prev) => [...prev, newPlaylists]);
+
+    };
+
+    const addSongsToPlaylist = (playlistId, song) => {
+      setPlaylists((prev) => 
+        prev.map((playlist) =>
+        playlist.id === playlistId
+      ?
+      {
+        ...playlist,
+          songs: [...playlist.songs, song],
+        }
+         : playlist
+        
+      ))
+    }
+
     const play = () => setIsPlaying(true);
    const pause = () => setIsPlaying(false);    
 
@@ -124,6 +149,10 @@ export const useMusic = () =>{
        pause,
        isPlaying,
        volume,  
-       setVolume
+       setVolume,
+       createPlaylist,
+       playlists,
+       addSongsToPlaylist,
+       setCurrentTrack
       };
 };
