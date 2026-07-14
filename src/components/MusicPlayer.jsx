@@ -44,7 +44,10 @@ export const MusicPlayer = ({ music }) =>{
         const audio = audioRef.current;
         if(!audio) return;
         if(isPlaying){
-            audio.play().catch((err) => console.error(err));
+        audio.play().catch((err) => {
+  console.error("Play error:", err);
+  console.log("Audio src:", audio.src);
+});
         }else{
             audio.pause();
 
